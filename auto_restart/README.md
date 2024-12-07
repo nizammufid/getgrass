@@ -1,3 +1,3 @@
-- Before Run! Make Sure Already Input _user_id
+- Before Run autorestart.py ! Make Sure Already Input _user_id
 - For autoproxy.py On Line 74
 - For autoproxyremove.py On Line 99
