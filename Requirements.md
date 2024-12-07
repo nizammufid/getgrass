@@ -9,8 +9,6 @@ pip install asyncio
 pip install loguru
 pip install websockets_proxy
 pip install fake_useragent==1.5.1
-pip uninstall websockets
-pip install websockets==12.0
 ```
 - For Termux Android [Download Here](https://f-droid.org/repo/com.termux_1020.apk) [F-Droid Version]
 ```
@@ -28,8 +26,6 @@ pip install asyncio
 pip install loguru
 pip install websockets_proxy
 pip install fake_useragent==1.5.1
-pip uninstall websockets
-pip install websockets==12.0
 ```
 - For Ubuntu 18.04 | 20.04 | 22.04 (VPS)
 ```
@@ -45,6 +41,4 @@ pip install asyncio
 pip install loguru
 pip install websockets_proxy
 pip install fake_useragent==1.5.1
-pip uninstall websockets
-pip install websockets==12.0
 ```
