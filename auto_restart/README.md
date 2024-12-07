@@ -1,1 +1,3 @@
-- Before Run! Make Sure Already Input _user_id = 'INPUT_ID_GRASS' In Line 74
+- Before Run! Make Sure Already Input _user_id
+- For autoproxy.py On Line 74
+- For autoproxyremove.py On Line 99
