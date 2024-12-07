@@ -8,7 +8,7 @@ pip install requests
 pip install asyncio
 pip install loguru
 pip install websockets_proxy
-pip install fake_useragent
+pip install fake_useragent==1.5.1
 pip uninstall websockets
 pip install websockets==12.0
 ```
@@ -27,7 +27,7 @@ pip install requests
 pip install asyncio
 pip install loguru
 pip install websockets_proxy
-pip install fake_useragent
+pip install fake_useragent==1.5.1
 pip uninstall websockets
 pip install websockets==12.0
 ```
@@ -44,7 +44,7 @@ pip install requests
 pip install asyncio
 pip install loguru
 pip install websockets_proxy
-pip install fake_useragent
+pip install fake_useragent==1.5.1
 pip uninstall websockets
 pip install websockets==12.0
 ```
