@@ -5,7 +5,7 @@ import sys
 print(f'Python Script Run & Auto Restart With Custom Time')
 print(f'')
 print(f'Make Sure Target Script Have Same Folder')
-target_script = str(input('Input Name Script : '))
+target_script = str(input('Input Name script.py : '))
 restart_time = int(input('Input Restart Time In Minutes, Min 1 Minutes : '))
 
 def run_script():
