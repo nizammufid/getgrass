@@ -7,6 +7,7 @@ import uuid
 import websockets
 from loguru import logger
 from fake_useragent import UserAgent
+from datetime import datetime
 
 async def connect_to_wss(user_id):
     user_agent = UserAgent(os=['windows', 'macos', 'linux'], browsers='chrome')
@@ -50,7 +51,12 @@ async def connect_to_wss(user_id):
                     response = await websocket.recv()
                     message = json.loads(response)
                     logger.info(f"Received message: {message}")
-                    
+                        
+                    # Generate the current datetime in UTC
+                    now = datetime.utcnow()
+                    # Format the datetime as a string in the desired format
+                    formatted_time = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
+
                     if message.get("action") == "AUTH":
                         auth_response = {
                             "id": message["id"],
@@ -64,8 +70,28 @@ async def connect_to_wss(user_id):
                                 "version": "4.29.0",
                             }
                         }
-                        logger.debug(f"Sending AUTH response: {auth_response}")
+                        logger.debug(auth_response)
                         await websocket.send(json.dumps(auth_response))
+                        
+                    elif message.get("action") == "HTTP_REQUEST":
+                        httpreq_response = {
+                            "id": message["id"],
+                            "origin_action": "HTTP_REQUEST",
+                            "result": {
+                                "url": message["url"],
+                                "status": int(200),
+                                "status_text": "OK",
+                                "headers": {
+                                    "content-type": "application/json; charset=utf-8",
+                                    "date": formatted_time,
+                                    "keep-alive": "timeout=5",
+                                    "proxy-connection": "keep-alive",
+                                    "x-powered-by": "Express",
+                                }
+                            }
+                        }
+                        logger.debug(httpreq_response)
+                        await websocket.send(json.dumps(httpreq_response))
 
                     elif message.get("action") == "PONG":
                         pong_response = {"id": message["id"], "origin_action": "PONG"}
