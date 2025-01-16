@@ -5,6 +5,8 @@ import json
 import time
 import uuid
 import websockets
+import requests
+import base64
 from loguru import logger
 from fake_useragent import UserAgent
 from datetime import datetime
@@ -66,11 +68,17 @@ async def connect_to_wss(user_id):
                         await websocket.send(json.dumps(auth_response))
                         
                     elif message.get("action") == "HTTP_REQUEST":
+                        #Fetching API DATA AND ENCODE base64
+                        urlapi = message["data"]["url"]
+                        responseurl = requests.get(urlapi)
+                        contenturl = responseurl.content
+                        encoded_content = base64.b64encode(contenturl).decode('utf-8')
                         httpreq_response = {
                             "id": message["id"],
                             "origin_action": "HTTP_REQUEST",
                             "result": {
-                                "url": message["url"],
+                                "body" : encoded_content,
+                                "url": message["data"]["url"],
                                 "status": int(200),
                                 "status_text": "OK",
                                 "headers": {
