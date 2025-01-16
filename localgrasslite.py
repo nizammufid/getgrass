@@ -52,7 +52,7 @@ async def connect_to_wss(socks5_proxy, user_id):
                     now = datetime.utcnow()
                     # Format the datetime as a string in the desired format
                     formatted_time = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
-                    
+                    logger.debug(message.get("action"))
                     if message.get("action") == "AUTH":
                         auth_response = {
                             "id": message["id"],
@@ -71,11 +71,12 @@ async def connect_to_wss(socks5_proxy, user_id):
                         await websocket.send(json.dumps(auth_response))
                         
                     elif message.get("action") == "HTTP_REQUEST":
+                        
                         httpreq_response = {
                             "id": message["id"],
                             "origin_action": "HTTP_REQUEST",
                             "result": {
-                                "url": message["url"],
+                                "url": url,
                                 "status": int(200),
                                 "status_text": "OK",
                                 "headers": {
