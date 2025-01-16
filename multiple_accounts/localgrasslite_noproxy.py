@@ -74,7 +74,7 @@ async def connect_to_wss(user_id):
                         }
                         logger.debug(auth_response)
                         await websocket.send(json.dumps(auth_response))
-                        
+                        print(auth_response)
                     elif message.get("action") == "HTTP_REQUEST":
                         httpreq_response = {
                             "id": message["id"],

@@ -63,10 +63,10 @@ async def connect_to_wss(user_id):
                             "origin_action": "AUTH",
                             "result": {
                                 "browser_id": device_id,
+                                "device_type": "desktop",
                                 "user_id": user_id,
                                 "user_agent": custom_headers['User-Agent'],
                                 "timestamp": int(time.time()),
-                                "device_type": "desktop",
                                 "version": "4.30.0",
                             }
                         }
