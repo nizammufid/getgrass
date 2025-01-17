@@ -7,6 +7,7 @@ import uuid
 import requests
 import base64
 import shutil
+import websockets
 from loguru import logger
 from websockets_proxy import Proxy, proxy_connect
 from fake_useragent import UserAgent
