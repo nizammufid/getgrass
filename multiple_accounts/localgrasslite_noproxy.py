@@ -24,16 +24,46 @@ async def connect_to_wss(user_id):
                 "User-Agent": random_user_agent,
                 "Origin": "chrome-extension://ilehaonighjijnmpnagapkhpcdbhclfg"
             }
+        #Checkin
+            headers_checkin = {
+                "Accept": "*/*",
+                "Accept-Encoding": "gzip, deflate, br, zstd",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Connection": "keep-alive",
+                "Content-Type": "application/json",
+                "Origin": "chrome-extension://ilehaonighjijnmpnagapkhpcdbhclfg",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "none",
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+                }
+
+            payload_checkin = {
+                    "browserId": device_id,
+                    "userId": user_id,
+                    "version": "5.0.0",
+                    "extensionId": "ilehaonighjijnmpnagapkhpcdbhclfg",
+                    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+                    "deviceType": "extension"
+                }
+
+            response_checkin = requests.post("https://director.getgrass.io/checkin", headers=headers_checkin, data=json.dumps(payload_checkin))
+            #checkin_data = response_checkin.content
+            checkin_data = json.loads(response_checkin.content.decode())
+            destination = checkin_data['destinations'][0]
+            token = checkin_data['token']
+            #print(checkin_data["destinations"][0])
+
             ssl_context = ssl.create_default_context()
             ssl_context.check_hostname = False
             ssl_context.verify_mode = ssl.CERT_NONE
-            urilist = ["wss://proxy2.wynd.network:4444/", "wss://proxy2.wynd.network:4650/"]
-            uri = random.choice(urilist)
-            server_hostname = "proxy2.wynd.network"
+            #urilist = ["wss://proxy2.wynd.network:4444/", "wss://proxy2.wynd.network:4650/"]
+            #uri = random.choice(urilist)
+            uri = f"wss://{destination}/?token={token}"
+          # logger.debug(uri)
             
             # Connect to WebSocket server
-            async with websockets.connect(uri, ssl=ssl_context, extra_headers=custom_headers, 
-                                          server_hostname=server_hostname) as websocket:
+            async with websockets.connect(uri, ssl=ssl_context, extra_headers=custom_headers) as websocket:
                 
                 # Send ping every 5 seconds
                 async def send_ping():
@@ -70,7 +100,7 @@ async def connect_to_wss(user_id):
                                 "user_agent": custom_headers['User-Agent'],
                                 "timestamp": int(time.time()),
                                 "device_type": "extension",
-                                "version": "4.26.2",
+                                "version": "5.0.0",
                                 "extension_id": "ilehaonighjijnmpnagapkhpcdbhclfg"
                             }
                         }
