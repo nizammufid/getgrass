@@ -60,7 +60,7 @@ async def connect_to_wss(user_id):
             #urilist = ["wss://proxy2.wynd.network:4444/", "wss://proxy2.wynd.network:4650/"]
             #uri = random.choice(urilist)
             uri = f"wss://{destination}/?token={token}"
-          # logger.debug(uri)
+            logger.debug(uri)
             
             # Connect to WebSocket server
             async with websockets.connect(uri, ssl=ssl_context, extra_headers=custom_headers) as websocket:
