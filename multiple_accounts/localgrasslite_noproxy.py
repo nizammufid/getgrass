@@ -43,7 +43,7 @@ async def connect_to_wss(user_id):
                     "userId": user_id,
                     "version": "5.0.0",
                     "extensionId": "ilehaonighjijnmpnagapkhpcdbhclfg",
-                    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+                    "userAgent": custom_headers['User-Agent'],
                     "deviceType": "extension"
                 }
 
