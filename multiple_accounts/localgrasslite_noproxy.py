@@ -41,7 +41,7 @@ async def connect_to_wss(user_id):
             payload_checkin = {
                     "browserId": device_id,
                     "userId": user_id,
-                    "version": "5.0.0",
+                    "version": "5.1.1",
                     "extensionId": "ilehaonighjijnmpnagapkhpcdbhclfg",
                     "userAgent": custom_headers['User-Agent'],
                     "deviceType": "extension"
